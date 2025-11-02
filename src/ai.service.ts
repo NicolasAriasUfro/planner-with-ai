@@ -1,4 +1,7 @@
 import {GoogleGenAI} from "@google/genai";
+import dotenv from 'dotenv';
+dotenv.config();
+
 export async function getPlanner(topics:string[], initialDate:string, hoursPerWeek:number, weeksQuantity:number){
 
     const ai = new GoogleGenAI({apiKey:process.env.API_KEY_GEMINI!});
