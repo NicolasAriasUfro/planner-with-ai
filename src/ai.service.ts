@@ -1,32 +1,67 @@
-import {GoogleGenAI} from "@google/genai";
-import dotenv from 'dotenv';
+import { GoogleGenAI } from "@google/genai";
+import dotenv from "dotenv";
+
 dotenv.config();
 
-export async function getPlanner(topics:string[], initialDate:string, hoursPerWeek:number, weeksQuantity:number){
+/**
+ * Servicio que interactúa con la API de Gemini
+ * para generar contenido basado en parámetros de estudio.
+ */
+export class GoogleAiService {
+    private ai: GoogleGenAI;
 
-    const ai = new GoogleGenAI({apiKey:process.env.API_KEY_GEMINI!});
+    constructor() {
+        const apiKey = process.env.API_KEY_GEMINI;
+        if (!apiKey) {
+            throw new Error("❌ API_KEY_GEMINI is not defined in environment variables");
+        }
+        this.ai = new GoogleGenAI({ apiKey });
+    }
 
-    const response = await ai.models.generateContent({
-        model:  'gemini-2.5-flash',
-        contents: "Create a study schedule based on the following parameters: \n" +
-            "Topics: " + topics.join(", ") + "\n" +
-            "Initial Date: " + initialDate + "\n" +
-            "Hours per Week: " + hoursPerWeek + "\n" +
-            "Weeks Quantity: " + weeksQuantity + "\n" +
-            "The schedule should distribute the topics evenly over the available time and provide specific study sessions for each topic." +
-            "additionally, consider a retrospective review to consolidate learning. ",
-        config: {
-            thinkingConfig: {
-                thinkingBudget: 0,
-                // Turn off thinking:
-                // thinkingBudget: 0
-                // Turn on dynamic thinking:
-                // thinkingBudget: -1
-            },
-        },
-    })
+    /**
+     * Verifica si la API de Gemini está operativa.
+     */
+    async health(): Promise<boolean> {
+        try {
+            // Simple ping test: usar un modelo mínimo para verificar disponibilidad
+            await this.ai.models.get({ model: "gemini-2.5-flash" });
+            return true;
+        } catch (error) {
+            console.error("❌ Google AI health check failed:", error);
+            return false;
+        }
+    }
 
-    //console.log(response.text);
-    return response.text;
+    /**
+     * Genera un plan de estudio con Gemini según los parámetros indicados.
+     */
+    async getPlanner(
+        topics: string[],
+        initialDate: string,
+        hoursPerWeek: number,
+        weeksQuantity: number
+    ): Promise<string> {
+        try {
+            const response = await this.ai.models.generateContent({
+                model: "gemini-2.5-flash",
+                contents:
+                    `Create a study schedule based on the following parameters:\n` +
+                    `Topics: ${topics.join(", ")}\n` +
+                    `Initial Date: ${initialDate}\n` +
+                    `Hours per Week: ${hoursPerWeek}\n` +
+                    `Weeks Quantity: ${weeksQuantity}\n` +
+                    `The schedule should distribute the topics evenly and include retrospective reviews.`,
+                config: {
+                    thinkingConfig: {
+                        thinkingBudget: 0,
+                    },
+                },
+            });
 
+            return response.text;
+        } catch (error) {
+            console.error("❌ Error generating planner:", error);
+            throw new Error("Failed to generate study plan");
+        }
+    }
 }

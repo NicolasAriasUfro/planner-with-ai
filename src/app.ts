@@ -1,14 +1,20 @@
 import express from 'express';
-import { prepareSchedule} from "./planner.service";
+import { PlannerService} from "./planner.service";
 const app = express();
 const port = 3000;
 
 app.use(express.json());
 
-
+const plannerService = new PlannerService;
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
+
+app.get('/health-service', async (req, res) => {
+    if (await plannerService.healthService()){
+        res.json({ service: 'Health Service' });
+    }
+})
 
 /*
 Endpoints for planner features
@@ -61,7 +67,7 @@ app.get("/planner", async (req, res) => {
     }
     
     try {
-        const response = await prepareSchedule(topics, initialDate, hoursPerWeek, weeksQuantity);
+        const response = await plannerService.prepareSchedule(topics, initialDate, hoursPerWeek, weeksQuantity);
         res.json({ response });
     } catch (error) {
         res.status(500).json({
