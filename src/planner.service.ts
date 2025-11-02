@@ -1,6 +1,14 @@
-import {getPlanner} from "./ai.service";
+import { GoogleAiService} from "./ai.service";
 
-export async function prepareSchedule(topics: string[], initialDate: string, hoursPerWeek: number, weeksQuantity: number): Promise<string> {
+export class PlannerService {
+    constructor(private readonly iaService:GoogleAiService = new GoogleAiService) {
+    }
 
-    return await getPlanner(topics, initialDate, hoursPerWeek, weeksQuantity)
+    async healthService(): Promise<Boolean> {
+        return await this.iaService.health();
+    }
+
+    async prepareSchedule(topics: string[], initialDate: string, hoursPerWeek: number, weeksQuantity: number): Promise<string> {
+        return await this.iaService.getPlanner(topics, initialDate, hoursPerWeek, weeksQuantity)
+    }
 }
