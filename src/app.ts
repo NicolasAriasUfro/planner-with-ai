@@ -23,7 +23,7 @@ number of hours wekly available
 a total amount of weeks to planner
 returns a schedule with topics distributed in the available time
  */
-app.get("/planner", async (req, res) => {
+app.post("/planner", async (req, res) => {
     // Validation
     console.log(req.body)
     const topics = req.body.topics;
