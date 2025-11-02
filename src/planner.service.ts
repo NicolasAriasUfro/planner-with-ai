@@ -9,6 +9,10 @@ export class PlannerService {
     }
 
     async prepareSchedule(topics: string[], initialDate: string, hoursPerWeek: number, weeksQuantity: number): Promise<string> {
-        return await this.iaService.getPlanner(topics, initialDate, hoursPerWeek, weeksQuantity)
+
+
+        const response =  await this.iaService.getPlanner(topics, initialDate, hoursPerWeek, weeksQuantity)
+        console.log(response)
+        return response
     }
 }
