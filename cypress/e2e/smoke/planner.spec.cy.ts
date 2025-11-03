@@ -24,7 +24,7 @@ context( "/planner", () => {
             url: "http://localhost:3000/planner",
             body,
             failOnStatusCode: false, // evita que Cypress falle automáticamente en códigos != 2xx
-        }).then((res) => {
+        }).should((res) => {
             expect(res.status).to.eq(400);
             expect(res.body).to.have.property("error");
             expect(res.body.error).to.include("Missing required parameters");
@@ -43,7 +43,7 @@ context( "/planner", () => {
             url: "http://localhost:3000/planner",
             body,
             failOnStatusCode: false, // evita que Cypress falle automáticamente en códigos != 2xx
-        }).then((res) => {
+        }).should((res) => {
             expect(res.status).to.eq(400);
             expect(res.body).to.have.property("error");
             expect(res.body.error).to.include("Missing required parameters");
@@ -62,7 +62,7 @@ context( "/planner", () => {
             url: "http://localhost:3000/planner",
             body,
             failOnStatusCode: false, // evita que Cypress falle automáticamente en códigos != 2xx
-        }).then((res) => {
+        }).should((res) => {
             expect(res.status).to.eq(400);
             expect(res.body).to.have.property("error");
             expect(res.body.error).to.include("Missing required parameters");
@@ -81,7 +81,7 @@ context( "/planner", () => {
             url: "http://localhost:3000/planner",
             body,
             failOnStatusCode: false, // evita que Cypress falle automáticamente en códigos != 2xx
-        }).then((res) => {
+        }).should((res) => {
             expect(res.status).to.eq(400);
             expect(res.body).to.have.property("error");
             expect(res.body.error).to.include("Missing required parameters");
