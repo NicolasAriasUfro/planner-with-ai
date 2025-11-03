@@ -1,0 +1,66 @@
+[
+  {
+    "weekNumber": 1,
+    "totalHours": 6,
+    "activities": [
+      {
+        "topic": "matemáticas",
+        "description": "Repaso de álgebra básica y operaciones con números reales.",
+        "estimatedHours": 3
+      },
+      {
+        "topic": "matemáticas",
+        "description": "Introducción a las funciones lineales y sus propiedades.",
+        "estimatedHours": 3
+      }
+    ]
+  },
+  {
+    "weekNumber": 2,
+    "totalHours": 6,
+    "activities": [
+      {
+        "topic": "matemáticas",
+        "description": "Resolución de ecuaciones lineales y sistemas de ecuaciones.",
+        "estimatedHours": 3
+      },
+      {
+        "topic": "matemáticas",
+        "description": "Estudio de las funciones cuadráticas y sus gráficas.",
+        "estimatedHours": 3
+      }
+    ]
+  },
+  {
+    "weekNumber": 3,
+    "totalHours": 6,
+    "activities": [
+      {
+        "topic": "matemáticas",
+        "description": "Repaso de funciones, álgebra y resolución de problemas.",
+        "estimatedHours": 3
+      },
+      {
+        "topic": "matemáticas",
+        "description": "Introducción a la geometría analítica: puntos y rectas.",
+        "estimatedHours": 3
+      }
+    ]
+  },
+  {
+    "weekNumber": 4,
+    "totalHours": 6,
+    "activities": [
+      {
+        "topic": "matemáticas",
+        "description": "Estudio de las cónicas (circunferencia, parábola).",
+        "estimatedHours": 3
+      },
+      {
+        "topic": "matemáticas",
+        "description": "Evaluación final de los temas cubiertos y resolución de ejercicios de repaso.",
+        "estimatedHours": 3
+      }
+    ]
+  }
+]
