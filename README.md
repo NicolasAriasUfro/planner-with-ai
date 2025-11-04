@@ -13,12 +13,14 @@ A continuación se detallan las instrucciones como realizar la ejecución de las
 - Después de clonar el repositorio se debe ejecutar el comando npm install para instalar todas las dependencias y librerías usadas
 para ejecutar las pruebas.
 
+### conseguir el token
 
-3. Hacer correr el servidor con la API
+
+4. Hacer correr el servidor con la API
 
 - Ejecutar el comando npm run dev para que corra la API creada para la generación de un plan de estudios
 
 
-4. Ejecutar las pruebas de humo
+5. Ejecutar las pruebas de humo
 
 - Ejecutar el comando npm run smoke para poder ejecutar las pruebas de humo en cypress

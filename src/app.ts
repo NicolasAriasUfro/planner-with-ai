@@ -1,8 +1,18 @@
 import express from 'express';
-import { PlannerService} from "./planner.service";
+import { PlannerService } from "./planner.service";
 const app = express();
 const port = 3000;
+import fs from 'fs';
+import swaggerUi from 'swagger-ui-express';
+import path from 'path';
 
+const openapiDoc = JSON.parse(
+    fs.readFileSync(path.resolve(process.cwd(), 'openapi.json'), 'utf-8')
+);
+
+// Ruta de documentación
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapiDoc, { explorer: true }));
+// ...existing code...
 app.use(express.json());
 
 const plannerService = new PlannerService;
@@ -11,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/health-service', async (req, res) => {
-    if (await plannerService.healthService()){
+    if (await plannerService.healthService()) {
         res.json({ service: 'Health Service' });
     }
 })
@@ -30,42 +40,42 @@ app.post("/planner", async (req, res) => {
     const initialDate = req.body.initialDate;
     const hoursPerWeek = req.body.hoursPerWeek;
     const weeksQuantity = req.body.weeksQuantity;
-    
+
     // Check if all required parameters are present
     if (!topics || !initialDate || !hoursPerWeek || !weeksQuantity) {
         return res.status(400).json({
             error: "Missing required parameters. Required: topics, initialDate, hoursPerWeek, weeksQuantity"
         });
     }
-    
+
     // Validate topics is an array of strings
     if (!Array.isArray(topics) || topics.length === 0 || !topics.every(topic => typeof topic === 'string')) {
         return res.status(400).json({
             error: "topics must be a non-empty array of strings"
         });
     }
-    
+
     // Validate initialDate is a string
     if (typeof initialDate !== 'string' || initialDate.trim() === '') {
         return res.status(400).json({
             error: "initialDate must be a non-empty string"
         });
     }
-    
+
     // Validate hoursPerWeek is a positive number
     if (typeof hoursPerWeek !== 'number' || hoursPerWeek <= 0) {
         return res.status(400).json({
             error: "hoursPerWeek must be a positive number"
         });
     }
-    
+
     // Validate weeksQuantity is a positive number
     if (typeof weeksQuantity !== 'number' || weeksQuantity <= 0) {
         return res.status(400).json({
             error: "weeksQuantity must be a positive number"
         });
     }
-    
+
     try {
         const response = await plannerService.prepareSchedule(topics, initialDate, hoursPerWeek, weeksQuantity);
         res.json({ response });

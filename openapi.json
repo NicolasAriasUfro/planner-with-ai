@@ -1,0 +1,251 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Planner with AI API",
+    "description": "API para generar planificaciones de estudio utilizando inteligencia artificial",
+    "version": "1.0.0",
+    "contact": {
+      "name": "API Support"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor de desarrollo"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Endpoint de bienvenida",
+        "description": "Retorna un mensaje de bienvenida simple",
+        "operationId": "getRoot",
+        "tags": ["General"],
+        "responses": {
+          "200": {
+            "description": "Mensaje de bienvenida exitoso",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "example": "Hello World!"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/health-service": {
+      "get": {
+        "summary": "Verificación de salud del servicio",
+        "description": "Verifica que el servicio de planificación esté funcionando correctamente",
+        "operationId": "healthService",
+        "tags": ["Health"],
+        "responses": {
+          "200": {
+            "description": "Servicio funcionando correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "service": {
+                      "type": "string",
+                      "example": "Health Service"
+                    }
+                  },
+                  "required": ["service"]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/planner": {
+      "post": {
+        "summary": "Generar planificación de estudio",
+        "description": "Recibe una lista de tópicos y parámetros de tiempo para generar una planificación distribuida en el tiempo disponible",
+        "operationId": "createPlanner",
+        "tags": ["Planner"],
+        "requestBody": {
+          "description": "Datos necesarios para generar la planificación",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlannerRequest"
+              },
+              "examples": {
+                "ejemplo1": {
+                  "summary": "Planificación de 4 semanas",
+                  "value": {
+                    "topics": [
+                      "Introducción a JavaScript",
+                      "Variables y tipos de datos",
+                      "Funciones y scope",
+                      "Programación orientada a objetos"
+                    ],
+                    "initialDate": "2025-11-04",
+                    "hoursPerWeek": 10,
+                    "weeksQuantity": 4
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Planificación generada exitosamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlannerResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parámetros inválidos o faltantes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "missingParameters": {
+                    "summary": "Parámetros faltantes",
+                    "value": {
+                      "error": "Missing required parameters. Required: topics, initialDate, hoursPerWeek, weeksQuantity"
+                    }
+                  },
+                  "invalidTopics": {
+                    "summary": "Tópicos inválidos",
+                    "value": {
+                      "error": "topics must be a non-empty array of strings"
+                    }
+                  },
+                  "invalidDate": {
+                    "summary": "Fecha inválida",
+                    "value": {
+                      "error": "initialDate must be a non-empty string"
+                    }
+                  },
+                  "invalidHours": {
+                    "summary": "Horas inválidas",
+                    "value": {
+                      "error": "hoursPerWeek must be a positive number"
+                    }
+                  },
+                  "invalidWeeks": {
+                    "summary": "Semanas inválidas",
+                    "value": {
+                      "error": "weeksQuantity must be a positive number"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "internalError": {
+                    "summary": "Error al generar planificación",
+                    "value": {
+                      "error": "Internal server error while generating schedule"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PlannerRequest": {
+        "type": "object",
+        "required": ["topics", "initialDate", "hoursPerWeek", "weeksQuantity"],
+        "properties": {
+          "topics": {
+            "type": "array",
+            "description": "Lista de tópicos a incluir en la planificación",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Introducción a TypeScript",
+              "Configuración de proyecto",
+              "Tipos básicos y avanzados"
+            ]
+          },
+          "initialDate": {
+            "type": "string",
+            "description": "Fecha de inicio de la planificación (formato: YYYY-MM-DD)",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "example": "2025-11-04"
+          },
+          "hoursPerWeek": {
+            "type": "number",
+            "description": "Número de horas disponibles por semana",
+            "minimum": 0.1,
+            "exclusiveMinimum": true,
+            "example": 10
+          },
+          "weeksQuantity": {
+            "type": "number",
+            "description": "Cantidad total de semanas para distribuir los tópicos",
+            "minimum": 0.1,
+            "exclusiveMinimum": true,
+            "example": 4
+          }
+        }
+      },
+      "PlannerResponse": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "string",
+            "description": "Planificación generada por la IA"
+          }
+        },
+        "required": ["response"]
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Descripción del error"
+          }
+        },
+        "required": ["error"]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "General",
+      "description": "Endpoints generales de la API"
+    },
+    {
+      "name": "Health",
+      "description": "Endpoints de verificación de salud"
+    },
+    {
+      "name": "Planner",
+      "description": "Endpoints para generar planificaciones de estudio"
+    }
+  ]
+}
