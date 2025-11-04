@@ -5,12 +5,12 @@
     "activities": [
       {
         "topic": "matemáticas",
-        "description": "Repaso de álgebra básica y operaciones con números reales.",
+        "description": "Repaso de álgebra básica (ecuaciones lineales, sistemas de ecuaciones).",
         "estimatedHours": 3
       },
       {
         "topic": "matemáticas",
-        "description": "Introducción a las funciones lineales y sus propiedades.",
+        "description": "Introducción a la geometría analítica (puntos, distancias, segmentos).",
         "estimatedHours": 3
       }
     ]
@@ -21,13 +21,13 @@
     "activities": [
       {
         "topic": "matemáticas",
-        "description": "Resolución de ecuaciones lineales y sistemas de ecuaciones.",
-        "estimatedHours": 3
+        "description": "Funciones (dominio, rango, tipos de funciones).",
+        "estimatedHours": 3.5
       },
       {
         "topic": "matemáticas",
-        "description": "Estudio de las funciones cuadráticas y sus gráficas.",
-        "estimatedHours": 3
+        "description": "Trigonometría básica (ángulos, razones trigonométricas).",
+        "estimatedHours": 2.5
       }
     ]
   },
@@ -37,13 +37,13 @@
     "activities": [
       {
         "topic": "matemáticas",
-        "description": "Repaso de funciones, álgebra y resolución de problemas.",
-        "estimatedHours": 3
+        "description": "Cálculo diferencial (límites y derivadas).",
+        "estimatedHours": 4
       },
       {
         "topic": "matemáticas",
-        "description": "Introducción a la geometría analítica: puntos y rectas.",
-        "estimatedHours": 3
+        "description": "Repaso general de álgebra y geometría.",
+        "estimatedHours": 2
       }
     ]
   },
@@ -53,12 +53,12 @@
     "activities": [
       {
         "topic": "matemáticas",
-        "description": "Estudio de las cónicas (circunferencia, parábola).",
+        "description": "Introducción a la probabilidad y estadística (conceptos básicos).",
         "estimatedHours": 3
       },
       {
         "topic": "matemáticas",
-        "description": "Evaluación final de los temas cubiertos y resolución de ejercicios de repaso.",
+        "description": "Evaluación final de los temas cubiertos.",
         "estimatedHours": 3
       }
     ]

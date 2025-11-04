@@ -29,7 +29,7 @@ app.get('/health-service', async (req, res) => {
 /*
 Endpoints for planner features
 recibe un array of topics and start time
-number of hours wekly available
+number of hours weekly available
 a total amount of weeks to planner
 returns a schedule with topics distributed in the available time
  */
