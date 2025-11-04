@@ -10,23 +10,23 @@ A continuación se detallan las instrucciones como realizar la ejecución de las
 
     - Después de clonar el repositorio se debe ejecutar el comando npm install para instalar todas las dependencias y librerías usadas para ejecutar las pruebas.
 
-### Conseguir el Token
+3.  Conseguir el Token
 
-Requisitos:
+    **Requisitos:**
 
-- cuenta de google
-- acceso al LLM de gemini
+    - cuenta de google
+    - acceso al LLM de gemini
 
-Visitar: https://aistudio.google.com/api-keys
+    Visitar: https://aistudio.google.com/api-keys
 
-- crear clave de API
-- crea un proyecto si es necesario
-- click en el botón "Copy API key"
+    - crear clave de API
+    - crea un proyecto si es necesario
+    - click en el botón "Copy API key"
 
 Crear un archivo llamado ".env" con el siguiente contenido:
 
 ```
-API_KEY_GEMINI = "Token de gemini"
+API_KEY_GEMINI = Token de gemini
 ```
 
 4. Hacer correr el servidor con la API
@@ -35,6 +35,16 @@ API_KEY_GEMINI = "Token de gemini"
 
 5. Ejecutar las pruebas de humo
 
-    - Ejecutar el comando npm run smoke para poder ejecutar las pruebas de humo en cypress
+    Ejecutar el comando:
 
-6. Documentación
+```bash
+npm run smoke
+```
+
+    para poder ejecutar las pruebas de humo en cypress
+
+### Documentación de la API
+
+entrar a http://localhost:3000/docs para visualizar de manera visual la documentación de la API.
+
+![alt text](Screenshot_20251103_224208.png)
