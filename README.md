@@ -37,11 +37,11 @@ API_KEY_GEMINI = Token de gemini
 
     Ejecutar el comando:
 
-```bash
-npm run smoke
-```
+    ```bash
+    npm run smoke
+    ```
 
-    para poder ejecutar las pruebas de humo en cypress
+    Este comando ejecutara las pruebas de humo mediante Cypress.
 
 ### Documentación de la API
 
